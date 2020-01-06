@@ -1,4 +1,4 @@
-#include "loader.h"
+#include "../src/loader.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,7 +9,7 @@ void test_msg(const char* msg);
 void display_board(short int B[9][9]);
 short int generate_random_number();
 
-const char* TEST_FILE = "test_file.txt";
+const char* TEST_FILE = "tests/test_file.txt";
 
 int main(void)
 {
@@ -29,7 +29,7 @@ int main(void)
 
     /*Read from file*/
     loader_test_fn();
-    return_code = read_from_file("test_file.txt",test_board);
+    return_code = read_from_file(TEST_FILE,test_board);
     assert(return_code==0);
 
     test_msg("Display board loaded from file");
@@ -59,7 +59,7 @@ short int generate_random_number()
 
 void test_msg(const char*  msg)
 {
-    printf("\n#----------------------#\n    %s\n#----------------------#\n",msg);
+    printf("\n  ->  %s\n",msg);
 }
 
 /*Move to display.c*/

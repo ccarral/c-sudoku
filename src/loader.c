@@ -14,13 +14,10 @@ int read_from_file(const char* filename,short int B[9][9])
 {
     FILE *fp=NULL;
     int return_code=0;
-    char eof;
 
     /*Open file in read mode */
     fp = fopen(filename,"r");
     assert(fp!=NULL);
-
-    eof = getc(fp);
 
     /*Iterate through file*/
     for(int i=0;i<9 && return_code==0;i++){

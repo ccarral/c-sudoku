@@ -4,8 +4,8 @@ echo "Running tests..."
 
 echo "Compiling"
 
-make --directory="src"
+make --directory="tests"
 
-./src/tests
+./tests/tests
 
-rm ./src/tests
+rm ./tests/tests
