@@ -1,2 +1,7 @@
+
+CC = gcc
+DEPS = ../src/loader.c ../src/types.c ../src/display.c
+OUT = tests
+
 tests:
-	gcc -o tests main_test.c ../src/loader.c 
+	$(CC) -o $(OUT) main_test.c $(DEPS)
