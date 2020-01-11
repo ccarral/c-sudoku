@@ -1,2 +1,3 @@
-* Tener un algoritmo de sudoku
-* Añadir capas de abstracción
+The get_candidates function works as expected.
+
+* Now with all the auxiliary functions out of the way, I should be able to implement the main algorithm.

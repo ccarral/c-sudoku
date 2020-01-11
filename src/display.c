@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include "types.h"
 
-void display_board(short int B[9][9])
+void display_array(s_int B[9][9])
 {
     printf("\n");
     for(int i=0;i<9;i++){

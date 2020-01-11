@@ -1,6 +1,7 @@
 #include "../src/loader.h"
 #include "../src/types.h"
 #include "../src/display.h"
+#include "../src/sudoku.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +9,7 @@
 
 void init_dummy_board(short int B[9][9]);
 void test_msg(const char* msg);
-void display_board(short int B[9][9]);
+void display_array(short int B[9][9]);
 short int generate_random_number();
 
 const char* TEST_FILE = "tests/test_file.txt";
@@ -16,28 +17,30 @@ const char* TEST_FILE = "tests/test_file.txt";
 int main(void)
 {
     int return_code=0;
-    short int test_board[9][9];
-    stack test_stack;
+    s_int test_array[9][9];
+    stack test_stack=NULL;
     list test_list=NULL;
+    stack candidates=NULL;
+    missing_t* missing_test=NULL;
 
     srand(time(0));
 
     test_msg("Running tests...");
 
     /*Fill dummy board*/
-    init_dummy_board(test_board);
+    init_dummy_board(test_array);
 
     /*Display Filled Dummy Board*/
     test_msg("Display Test");
-    display_board(test_board);
+    display_array(test_array);
 
     /*Read from file*/
     loader_test_fn();
-    return_code = read_from_file(TEST_FILE,test_board);
+    return_code = read_from_file(TEST_FILE,test_array);
     assert(return_code==0);
 
     test_msg("Display board loaded from file");
-    display_board(test_board);
+    display_array(test_array);
 
     test_msg("Stack tests");
 
@@ -75,33 +78,61 @@ int main(void)
 
     test_msg("Testing list operations");
     test_msg("Testing append");
-    append(&test_list,10);
-    debug_list(&test_list);
-    append(&test_list,20);
-    append(&test_list,30);
-    append(&test_list,40);
+    append(&test_list,1);
+    append(&test_list,2);
+    append(&test_list,3);
+    append(&test_list,4);
+    append(&test_list,5);
+    append(&test_list,6);
+    append(&test_list,7);
+    append(&test_list,8);
+    append(&test_list,9);
     debug_list(&test_list);
 
-    test_msg("Testing in_list and append");
-    assert(in_list(&test_list,10));
-    assert(in_list(&test_list,20));
-    assert(in_list(&test_list,40));
+    test_msg("Testing in_list");
+    assert(in_list(&test_list,1));
+    assert(in_list(&test_list,2));
+    assert(in_list(&test_list,3));
+    assert(in_list(&test_list,4));
+    assert(in_list(&test_list,5));
+    assert(in_list(&test_list,6));
+    assert(in_list(&test_list,7));
+    assert(in_list(&test_list,8));
+    assert(in_list(&test_list,9));
     assert(in_list(&test_list,50)==0);
     assert(in_list(&test_list,23)==0);
     assert(in_list(&test_list,27)==0);
 
     test_msg("Testing remove_val");
     assert(remove_val(&test_list,23)==-1);
-    test_msg("Removing (40)");
-    assert(remove_val(&test_list,40)==0);
+    test_msg("Removing (6)");
+    assert(remove_val(&test_list,6)==0);
+    assert(!in_list(&test_list,6));
     debug_list(&test_list);
-    test_msg("Removing (20)");
-    assert(remove_val(&test_list,20)==0);
+    assert(in_list(&test_list,7));
+    test_msg("Removing (9)");
+    assert(remove_val(&test_list,9)==0);
     debug_list(&test_list);
-    test_msg("Removing (10)");
-    assert(remove_val(&test_list,10)==0);
+    test_msg("Removing (1)");
+    assert(remove_val(&test_list,1)==0);
     debug_list(&test_list);
 
+    test_msg("Testing get_candidates");
+    missing_test = init_missing(0,1);
+    assert(missing_test->i==0);
+    assert(missing_test->j==1);
+    test_msg("Testing get_candidates_h");
+    candidates = get_candidates_h(test_array,missing_test);
+    debug_list(&candidates);
+    test_msg("Testing get_candidates_v");
+    candidates = get_candidates_v(test_array,missing_test);
+    debug_list(&candidates);
+    test_msg("Testing get_candidates_b");
+    candidates = get_candidates_b(test_array,missing_test);
+    debug_list(&candidates);
+    test_msg("Testing get_candidates");
+    candidates = get_candidates(test_array,missing_test);
+    debug_list(&candidates);
 
     return return_code;
 }

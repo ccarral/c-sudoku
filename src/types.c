@@ -94,22 +94,23 @@ int remove_val(list *L, s_int value)
     node_t *aux_next=NULL;
     node_t *last_ptr=NULL;
 
+    /*Si el valor no se encuentra en la lista*/
     if(!in_list(L,value)) return -1;
     else{
+        /*Comenzar a recorrer la lista hasta encontrar el valor*/
         current_node_ptr = *L;
         if(current_node_ptr->value==value){
-            *L = current_node_ptr->next;
+            *L = (current_node_ptr->next);
             free(current_node_ptr);
         }else{
-            aux_next = current_node_ptr->next;
             while(current_node_ptr->value!=value){
-                last_ptr = current_node_ptr;
+                last_ptr = &(*current_node_ptr);
                 current_node_ptr = current_node_ptr->next;
             }
-            *last_ptr = *(current_node_ptr->next);
+            last_ptr->next = current_node_ptr->next;
             free(current_node_ptr);
         }
-    }
+   }
     return 0;
 }
 

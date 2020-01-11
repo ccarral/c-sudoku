@@ -1,6 +1,6 @@
 
 CC = gcc
-DEPS = ../src/loader.c ../src/types.c ../src/display.c
+DEPS = ../src/loader.c ../src/types.c ../src/display.c ../src/sudoku.c
 OUT = tests
 
 tests:
