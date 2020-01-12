@@ -12,22 +12,17 @@ list get_candidates_h(s_int B[9][9], missing_t* missingptr);
 list get_candidates_v(s_int B[9][9], missing_t* missingptr);
 list get_candidates_b(s_int B[9][9], missing_t* missingptr);
 
-missing_list scan_missing(s_int A[9][9])
+void scan_missing(s_int A[9][9],missing_list* ML)
 {
-    missing_list M;
 
-    for(int i=0;i<9;i++){
-        for(int j=0;j<9;j++){
-            if(A[i][j]==0){
-                add_missing(&M,i,j);
-
-            }
+    for(s_int i=0;i<9;i++){
+        for(s_int j=0;j<9;j++){
+            if(A[i][j]==0) add_missing(ML,i,j);
         }
     }
-    return M;
 }
 
-missing_t* init_missing(s_int i,s_int j)
+missing_t *init_missing(s_int i,s_int j)
 {
     missing_t* new;
 
@@ -48,7 +43,7 @@ void add_missing(missing_list *M,s_int i, s_int j)
 {
     missing_t *aux_missing;
 
-    if((*M)==NULL) *M=init_missing(i,j);
+    if(*M==NULL) *M=init_missing(i,j);
     else{
         aux_missing = init_missing(i,j);
         aux_missing->next = *M;
@@ -132,4 +127,21 @@ list get_candidates_b(s_int B[9][9], missing_t* missingptr)
 
     return possibles;
 
+}
+
+void debug_missing_list(missing_list *L)
+{
+    missing_t *aux_node_ptr;
+
+    if(*L==NULL){
+        printf("\n    ML-> NULL \n");
+    }else{
+        printf("\n    ML-> ");
+        aux_node_ptr = *L;
+        while(aux_node_ptr!=NULL){
+            printf("\n(%hd,%hd) -> ",aux_node_ptr->i,aux_node_ptr->j);
+            aux_node_ptr = aux_node_ptr->next;
+        }
+        printf("NULL\n");
+    }
 }

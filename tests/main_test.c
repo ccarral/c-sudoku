@@ -22,17 +22,11 @@ int main(void)
     list test_list=NULL;
     stack candidates=NULL;
     missing_t* missing_test=NULL;
+    missing_list missing_l = NULL;
 
     srand(time(0));
 
     test_msg("Running tests...");
-
-    /*Fill dummy board*/
-    init_dummy_board(test_array);
-
-    /*Display Filled Dummy Board*/
-    test_msg("Display Test");
-    display_array(test_array);
 
     /*Read from file*/
     loader_test_fn();
@@ -42,97 +36,107 @@ int main(void)
     test_msg("Display board loaded from file");
     display_array(test_array);
 
-    test_msg("Stack tests");
+   test_msg("Stack tests");
 
     test_msg("Stack creation");
 
-    test_stack = new_node(1);
+    push(&test_stack,1);
     assert(test_stack!=NULL);
     assert(test_stack->value==1);
-
-    test_msg("Testing push");
+    debug_list(&test_stack);
     push(&test_stack,2);
-    assert(test_stack->value==2);
-
     push(&test_stack,3);
     push(&test_stack,4);
-    push(&test_stack,5);
+    debug_list(&test_stack);
 
-    test_msg("Testing pop");
-    assert(pop(&test_stack)==5);
-    assert(test_stack->value==4);
-    assert(pop(&test_stack)==4);
-    assert(test_stack->value==3);
-    assert(pop(&test_stack)==3);
-    assert(test_stack->value==2);
+    /*test_msg("Testing push");*/
+    /*push(&test_stack,2);*/
+    /*assert(test_stack->value==2);*/
 
-    test_msg("Testing stack_empty");
-    assert(!stack_empty(&test_stack));
-    pop(&test_stack); /*2*/
-    pop(&test_stack); /*1*/
-    assert(stack_empty(&test_stack));
+    /*push(&test_stack,3);*/
+    /*push(&test_stack,4);*/
+    /*push(&test_stack,5);*/
 
-    assert(pop(&test_stack)==-1);
-    assert(stack_empty(&test_stack));
-    assert(pop(&test_stack)==-1);
+    /*test_msg("Testing pop");*/
+    /*assert(pop(&test_stack)==5);*/
+    /*assert(test_stack->value==4);*/
+    /*assert(pop(&test_stack)==4);*/
+    /*assert(test_stack->value==3);*/
+    /*assert(pop(&test_stack)==3);*/
+    /*assert(test_stack->value==2);*/
 
-    test_msg("Testing list operations");
-    test_msg("Testing append");
-    append(&test_list,1);
-    append(&test_list,2);
-    append(&test_list,3);
-    append(&test_list,4);
-    append(&test_list,5);
-    append(&test_list,6);
-    append(&test_list,7);
-    append(&test_list,8);
-    append(&test_list,9);
-    debug_list(&test_list);
+    /*test_msg("Testing stack_empty");*/
+    /*assert(!stack_empty(&test_stack));*/
+    /*pop(&test_stack); [>2<]*/
+    /*pop(&test_stack); [>1<]*/
+    /*assert(stack_empty(&test_stack));*/
 
-    test_msg("Testing in_list");
-    assert(in_list(&test_list,1));
-    assert(in_list(&test_list,2));
-    assert(in_list(&test_list,3));
-    assert(in_list(&test_list,4));
-    assert(in_list(&test_list,5));
-    assert(in_list(&test_list,6));
-    assert(in_list(&test_list,7));
-    assert(in_list(&test_list,8));
-    assert(in_list(&test_list,9));
-    assert(in_list(&test_list,50)==0);
-    assert(in_list(&test_list,23)==0);
-    assert(in_list(&test_list,27)==0);
+    /*assert(pop(&test_stack)==-1);*/
+    /*assert(stack_empty(&test_stack));*/
+    /*assert(pop(&test_stack)==-1);*/
 
-    test_msg("Testing remove_val");
-    assert(remove_val(&test_list,23)==-1);
-    test_msg("Removing (6)");
-    assert(remove_val(&test_list,6)==0);
-    assert(!in_list(&test_list,6));
-    debug_list(&test_list);
-    assert(in_list(&test_list,7));
-    test_msg("Removing (9)");
-    assert(remove_val(&test_list,9)==0);
-    debug_list(&test_list);
-    test_msg("Removing (1)");
-    assert(remove_val(&test_list,1)==0);
-    debug_list(&test_list);
+    /*test_msg("Testing list operations");*/
+    /*test_msg("Testing append");*/
+    /*append(&test_list,1);*/
+    /*append(&test_list,2);*/
+    /*append(&test_list,3);*/
+    /*append(&test_list,4);*/
+    /*append(&test_list,5);*/
+    /*append(&test_list,6);*/
+    /*append(&test_list,7);*/
+    /*append(&test_list,8);*/
+    /*append(&test_list,9);*/
+    /*debug_list(&test_list);*/
 
-    test_msg("Testing get_candidates");
-    missing_test = init_missing(0,1);
-    assert(missing_test->i==0);
-    assert(missing_test->j==1);
-    test_msg("Testing get_candidates_h");
-    candidates = get_candidates_h(test_array,missing_test);
-    debug_list(&candidates);
-    test_msg("Testing get_candidates_v");
-    candidates = get_candidates_v(test_array,missing_test);
-    debug_list(&candidates);
-    test_msg("Testing get_candidates_b");
-    candidates = get_candidates_b(test_array,missing_test);
-    debug_list(&candidates);
-    test_msg("Testing get_candidates");
-    candidates = get_candidates(test_array,missing_test);
-    debug_list(&candidates);
+    /*test_msg("Testing in_list");*/
+    /*assert(in_list(&test_list,1));*/
+    /*assert(in_list(&test_list,2));*/
+    /*assert(in_list(&test_list,3));*/
+    /*assert(in_list(&test_list,4));*/
+    /*assert(in_list(&test_list,5));*/
+    /*assert(in_list(&test_list,6));*/
+    /*assert(in_list(&test_list,7));*/
+    /*assert(in_list(&test_list,8));*/
+    /*assert(in_list(&test_list,9));*/
+    /*assert(in_list(&test_list,50)==0);*/
+    /*assert(in_list(&test_list,23)==0);*/
+    /*assert(in_list(&test_list,27)==0);*/
+
+    /*test_msg("Testing remove_val");*/
+    /*assert(remove_val(&test_list,23)==-1);*/
+    /*test_msg("Removing (6)");*/
+    /*assert(remove_val(&test_list,6)==0);*/
+    /*assert(!in_list(&test_list,6));*/
+    /*debug_list(&test_list);*/
+    /*assert(in_list(&test_list,7));*/
+    /*test_msg("Removing (9)");*/
+    /*assert(remove_val(&test_list,9)==0);*/
+    /*debug_list(&test_list);*/
+    /*test_msg("Removing (1)");*/
+    /*assert(remove_val(&test_list,1)==0);*/
+    /*debug_list(&test_list);*/
+
+    /*test_msg("Testing get_candidates");*/
+    /*missing_test = init_missing(0,1);*/
+    /*assert(missing_test->i==0);*/
+    /*assert(missing_test->j==1);*/
+    /*test_msg("Testing get_candidates_h");*/
+    /*candidates = get_candidates_h(test_array,missing_test);*/
+    /*debug_list(&candidates);*/
+    /*test_msg("Testing get_candidates_v");*/
+    /*candidates = get_candidates_v(test_array,missing_test);*/
+    /*debug_list(&candidates);*/
+    /*test_msg("Testing get_candidates_b");*/
+    /*candidates = get_candidates_b(test_array,missing_test);*/
+    /*debug_list(&candidates);*/
+    /*test_msg("Testing get_candidates");*/
+    /*candidates = get_candidates(test_array,missing_test);*/
+    /*debug_list(&candidates);*/
+
+    test_msg("Testing scan_missing");
+    scan_missing(test_array,&missing_l);
+    debug_missing_list(&missing_l);
+    
 
     return return_code;
 }
