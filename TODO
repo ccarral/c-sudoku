@@ -1,3 +1,9 @@
-The get_candidates function works as expected.
+TODO
 
-* Now with all the auxiliary functions out of the way, I should be able to implement the main algorithm.
+* Define a global header
+* Implement a destructor for lists
+
+Notes:
+    backtrack_main_algorithm mostly works. It presents a weird bug where it inserts
+    a -1 instead of a real value.
+    Earliest debuggable instance with given text file is when i=7,j=3

@@ -2,6 +2,7 @@
 #include "../src/types.h"
 #include "../src/display.h"
 #include "../src/sudoku.h"
+#include "../src/backtrack.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,25 +30,25 @@ int main(void)
     test_msg("Running tests...");
 
     /*Read from file*/
-    loader_test_fn();
+    /*loader_test_fn();*/
     return_code = read_from_file(TEST_FILE,test_array);
     assert(return_code==0);
 
-    test_msg("Display board loaded from file");
+    /*test_msg("Display board loaded from file");*/
     display_array(test_array);
 
-   test_msg("Stack tests");
+   /*test_msg("Stack tests");*/
 
-    test_msg("Stack creation");
+    /*test_msg("Stack creation");*/
 
-    push(&test_stack,1);
-    assert(test_stack!=NULL);
-    assert(test_stack->value==1);
-    debug_list(&test_stack);
-    push(&test_stack,2);
-    push(&test_stack,3);
-    push(&test_stack,4);
-    debug_list(&test_stack);
+    /*push(&test_stack,1);*/
+    /*assert(test_stack!=NULL);*/
+    /*assert(test_stack->value==1);*/
+    /*debug_list(&test_stack);*/
+    /*push(&test_stack,2);*/
+    /*push(&test_stack,3);*/
+    /*push(&test_stack,4);*/
+    /*debug_list(&test_stack);*/
 
     /*test_msg("Testing push");*/
     /*push(&test_stack,2);*/
@@ -133,12 +134,19 @@ int main(void)
     /*candidates = get_candidates(test_array,missing_test);*/
     /*debug_list(&candidates);*/
 
-    test_msg("Testing scan_missing");
+    /*test_msg("Testing scan_missing");*/
     scan_missing(test_array,&missing_l);
-    debug_missing_list(&missing_l);
-    
+    /*debug_missing_list(&missing_l);*/
+
+    test_msg("Testing backtracking algorithm");
+    assert(backtrack_main_algorithm(test_array,&missing_l)==0);
+    display_array(test_array);
 
     return return_code;
+}
+
+int dummyfn(){
+    return 2;
 }
 
 void init_dummy_board(short int B[9][9])

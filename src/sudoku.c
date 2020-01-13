@@ -47,6 +47,7 @@ void add_missing(missing_list *M,s_int i, s_int j)
     else{
         aux_missing = init_missing(i,j);
         aux_missing->next = *M;
+        (*M)->prev = aux_missing;
         *M = aux_missing;
     }
 }
