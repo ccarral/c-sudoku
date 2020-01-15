@@ -3,14 +3,16 @@
 #include "../src/display.h"
 #include "../src/sudoku.h"
 #include "../src/backtrack.h"
+#include "../src/constants.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-void init_dummy_board(short int B[9][9]);
+
+void init_dummy_board(short int B[N][N]);
 void test_msg(const char* msg);
-void display_array(short int B[9][9]);
+void display_array(short int B[N][N]);
 short int generate_random_number();
 
 const char* TEST_FILE = "tests/test_file.txt";
@@ -18,7 +20,7 @@ const char* TEST_FILE = "tests/test_file.txt";
 int main(void)
 {
     int return_code=0;
-    s_int test_array[9][9];
+    s_int test_array[N][N];
     stack test_stack=NULL;
     list test_list=NULL;
     stack candidates=NULL;
@@ -86,7 +88,7 @@ int main(void)
     /*append(&test_list,6);*/
     /*append(&test_list,7);*/
     /*append(&test_list,8);*/
-    /*append(&test_list,9);*/
+    /*append(&test_list,N);*/
     /*debug_list(&test_list);*/
 
     /*test_msg("Testing in_list");*/
@@ -98,7 +100,7 @@ int main(void)
     /*assert(in_list(&test_list,6));*/
     /*assert(in_list(&test_list,7));*/
     /*assert(in_list(&test_list,8));*/
-    /*assert(in_list(&test_list,9));*/
+    /*assert(in_list(&test_list,N));*/
     /*assert(in_list(&test_list,50)==0);*/
     /*assert(in_list(&test_list,23)==0);*/
     /*assert(in_list(&test_list,27)==0);*/
@@ -110,15 +112,15 @@ int main(void)
     /*assert(!in_list(&test_list,6));*/
     /*debug_list(&test_list);*/
     /*assert(in_list(&test_list,7));*/
-    /*test_msg("Removing (9)");*/
-    /*assert(remove_val(&test_list,9)==0);*/
+    /*test_msg("Removing (N)");*/
+    /*assert(remove_val(&test_list,N)==0);*/
     /*debug_list(&test_list);*/
     /*test_msg("Removing (1)");*/
     /*assert(remove_val(&test_list,1)==0);*/
     /*debug_list(&test_list);*/
 
     /*test_msg("Testing get_candidates");*/
-    /*missing_test = init_missing(0,1);*/
+    missing_test = init_missing(0,1);
     /*assert(missing_test->i==0);*/
     /*assert(missing_test->j==1);*/
     /*test_msg("Testing get_candidates_h");*/
@@ -134,25 +136,21 @@ int main(void)
     /*candidates = get_candidates(test_array,missing_test);*/
     /*debug_list(&candidates);*/
 
-    /*test_msg("Testing scan_missing");*/
+    test_msg("Testing scan_missing");
     scan_missing(test_array,&missing_l);
     /*debug_missing_list(&missing_l);*/
 
     test_msg("Testing backtracking algorithm");
-    assert(backtrack_main_algorithm(test_array,&missing_l)==0);
+    backtrack_main(test_array);
     display_array(test_array);
 
     return return_code;
 }
 
-int dummyfn(){
-    return 2;
-}
-
-void init_dummy_board(short int B[9][9])
+void init_dummy_board(short int B[N][N])
 {
-    for(int i=0;i<9;i++){
-        for(int j=0;j<9;j++){
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++){
             B[i][j]= generate_random_number();
         }
     }
@@ -162,7 +160,7 @@ void init_dummy_board(short int B[9][9])
 short int generate_random_number()
 {
     short int random;
-    random = rand()%9;
+    random = rand()%N;
 
     return random;
 }

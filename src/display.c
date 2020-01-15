@@ -11,7 +11,8 @@ void display_array(s_int B[9][9])
 
             if(j==0 || j%3==0) printf("|");
 
-            printf(" %d ",B[i][j]);
+            if(B[i][j]!=-1) printf(" %d ",B[i][j]);
+            else printf(" %c ",'x');
 
 
         }
