@@ -14,6 +14,8 @@ void debug_msg(const char* msg);
 
 int stack_empty(stack *S);
 
+int list_len(list *L);
+
 void append(list *L,s_int value);
 
 int remove_val(list *L,s_int value);
@@ -150,6 +152,19 @@ void debug_list(list *L){
         }
         printf("NULL\n");
     }
+}
+
+int list_len(list *L){
+    int len = 0;
+    node_t *aux_node_ptr;
+    if(*L != NULL){
+        aux_node_ptr = *L;
+        while(aux_node_ptr!=NULL){
+            len++;
+            aux_node_ptr = aux_node_ptr->next;
+        }
+    }
+    return len;
 }
 
 void debug_msg(const char* msg){

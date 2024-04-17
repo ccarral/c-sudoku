@@ -25,6 +25,8 @@ void debug_list(list *L);
 
 int stack_empty(stack* S);
 
+int list_len(list* L);
+
 int in_list(list *L,s_int value);
 
 void append(list *L,s_int value);

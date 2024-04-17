@@ -54,7 +54,6 @@ void add_missing(missing_list *M,s_int i, s_int j)
 
 stack get_candidates(s_int B[9][9],s_int i,s_int j)
 {
-    /*Returns the intersection of horizontal, vertical and block candidates.*/
     stack ret_stack = NULL;
     list vlist=NULL,hlist=NULL,blist=NULL;
 

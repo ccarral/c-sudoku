@@ -25,8 +25,3 @@ int read_from_file(const char* filename,short int B[9][9])
     }
     return return_code;
 }
-
-void loader_test_fn()
-{
-    printf("This is a test function from loader.c\n");
-}
